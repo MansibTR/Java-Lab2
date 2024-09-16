@@ -52,7 +52,7 @@ public class Creature {
         return health > ZERO_HP;
     }
 
-    private void takeDamage(int damage) throws DamageException {
+    public void takeDamage(int damage) throws DamageException {
         if (damage < 0) {
             throw new DamageException("Damage cannot be negative");
         }

@@ -4,8 +4,10 @@ public class Dragon extends Creature{
 
     final static int MIN_FIREPOWER = 0;
     final static int MAX_FIREPOWER = 100;
+    final static int FIRE_BREATH_COST = 10;
+    final static int FIRE_BREATH_DAMAGE = 20;
 
-    final int firepower;
+    int firepower;
 
 
     public Dragon(final String name, final Date date_of_birth, int firepower) throws IllegalArgumentException {
@@ -31,7 +33,21 @@ public class Dragon extends Creature{
         }
     }
 
-    public void breatheFire(){
+    public void breatheFire(Creature creature) throws LowFirePowerException{
+        if(firepower < FIRE_BREATH_COST){
+            throw new LowFirePowerException("Not enough firepower!");
+        }
+        firepower -= FIRE_BREATH_COST;
+        creature.takeDamage(FIRE_BREATH_DAMAGE);
+
+    }
+
+    public void restoreFirePower(int amount){
+        firepower += amount;
+
+        if(firepower > MAX_FIREPOWER){
+            firepower = MAX_FIREPOWER;
+        }
 
     }
 }
