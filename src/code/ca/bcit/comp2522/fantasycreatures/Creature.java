@@ -48,15 +48,29 @@ public class Creature {
     }
 
 
-    public boolean isAlive() {
+    private boolean isAlive() {
         return health > ZERO_HP;
     }
 
-    private void takeDamage(int damage) {
+    private void takeDamage(int damage) throws DamageException {
+        if (damage < 0) {
+            throw new DamageException("Damage cannot be negative");
+        }
+        health -= damage;
+        if(health <= ZERO) {
+            health = ZERO;
+        }
 
     }
 
-    private void heal(int healAmount) {
+    private void heal(int healAmount) throws HealingException {
+        if (healAmount < 0){
+            throw new HealingException("Heal amount cannot be negative");
+        }
+        health += healAmount;
+        if(health > MAX_HP) {
+            health = MAX_HP;
+        }
 
     }
 
