@@ -7,7 +7,7 @@ public class Creature {
     private static final int ZERO = 0;
 
     private static final int ZERO_HP = 0;
-    private static final int DEFAULT_HP = 100;
+    private static final int MAX_HP = 100;
 
     private final String name;
     private final Date dateOfBirth;
@@ -17,7 +17,7 @@ public class Creature {
     public Creature(final String name, final Date dateOfBirth) throws IllegalArgumentException {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
-        this.health = DEFAULT_HP;
+        this.health = MAX_HP;
 
         validateName(name);
         validateDateOfBirth(dateOfBirth);
@@ -29,18 +29,16 @@ public class Creature {
         int currentYear = today.getYear();
         int birthYear = dateOfBirth.getYear();
 
-        return birthYear - currentYear;
+        return currentYear - birthYear;
     }
 
     public String getDetails() {
         StringBuilder details = new StringBuilder();
-        details.append(name);
-        for (int i = 0; i <= name.length(); i++) {
-            details.append('-');
-        }
-        details.append("Date of birth: \t").append(dateOfBirth)
+        details.append(name)
                 .append('\n')
-                .append("Date of Birth: ").append(dateOfBirth.toString())
+                .append("-".repeat(name.length()))
+                .append('\n')
+                .append("Date of birth: \t").append(dateOfBirth.getYYYYMMDD())
                 .append('\n')
                 .append("Age: ").append(this.getAgeYears())
                 .append('\n')
@@ -64,7 +62,7 @@ public class Creature {
 
     private void validateName(String name) {
 
-        if (name != null && !name.isEmpty()) {
+        if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Name cannot be blank");
         }
 
