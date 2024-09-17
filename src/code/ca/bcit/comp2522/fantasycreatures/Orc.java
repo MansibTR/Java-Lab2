@@ -10,7 +10,8 @@ package ca.bcit.comp2522.fantasycreatures;
  * {@value MIN_RAGE} and {@value MAX_RAGE}.
  * </p>
  *
- * @author Ben Henry, Mansib Talukder
+ * @author Ben Henry
+ * @author Mansib Talukder
  * @version 1.0
  */
 public class Orc extends Creature {

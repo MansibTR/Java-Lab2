@@ -3,7 +3,8 @@ package ca.bcit.comp2522.fantasycreatures;
 /**
  * This is the driver class for the application.
  *
- * @author Ben Henry, Mansib Talukder
+ * @author Ben Henry
+ * @author Mansib Talukder
  * @version 1.0
  */
 public class Main {

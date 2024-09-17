@@ -5,7 +5,8 @@ package ca.bcit.comp2522.fantasycreatures;
  * an Orc cannot go berserk due to insufficient rage.
  * It extends {@code RuntimeException}.
  *
- * @author Ben Henry, Mansib Talukder
+ * @author Ben Henry
+ * @author Mansib Talukder
  * @version 1.0
  */
 public class LowRageException extends RuntimeException {

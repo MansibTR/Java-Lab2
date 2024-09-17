@@ -10,7 +10,8 @@ package ca.bcit.comp2522.fantasycreatures;
  * elf's mana meets the minimum required threshold.
  * </p>
  *
- * @author Ben Henry, Mansib Talukder
+ * @author Ben Henry
+ * @author Mansib Talukder
  * @version 1.0
  */
 public class LowManaException extends Exception {

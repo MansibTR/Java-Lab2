@@ -11,7 +11,8 @@ package ca.bcit.comp2522.fantasycreatures;
  * {@value MIN_FIREPOWER} and {@value MAX_FIREPOWER}.
  * </p>
  *
- * @author Ben Henry, Mansib Talukder
+ * @author Ben Henry
+ * @author Mansib Talukder
  * @version 1.0
  */
 public class Dragon extends Creature{

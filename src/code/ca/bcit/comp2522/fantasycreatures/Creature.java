@@ -19,7 +19,8 @@ import java.time.LocalDate;
  *
  * Custom exceptions are thrown for invalid damage or healing amounts.
  *
- * @author Ben Henry, Mansib Talukder
+ * @author Ben Henry
+ * @author Mansib Talukder
  * @version 1.0
  */
 public class Creature {

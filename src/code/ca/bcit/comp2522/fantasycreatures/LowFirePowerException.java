@@ -10,7 +10,8 @@ package ca.bcit.comp2522.fantasycreatures;
  * dragon's firepower meets the minimum required threshold.
  * </p>
  *
- * @author Ben Henry, Mansib Talukder
+ * @author Ben Henry
+ * @author Mansib Talukder
  * @version 1.0
  */
 public class LowFirePowerException extends Exception {

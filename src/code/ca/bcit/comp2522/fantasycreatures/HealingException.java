@@ -5,7 +5,8 @@ package ca.bcit.comp2522.fantasycreatures;
  * a negative healing amount is provided.
  * It extends {@code RuntimeException}.
  *
- * @author Ben Henry, Mansib Talukder
+ * @author Ben Henry
+ * @author Mansib Talukder
  * @version 1.0
  */
 public class HealingException extends RuntimeException {

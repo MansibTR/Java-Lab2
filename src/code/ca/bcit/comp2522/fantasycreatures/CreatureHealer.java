@@ -7,7 +7,8 @@ import java.util.Random;
  * with additional attributes and behavior related to Heal.
  * The CreatureHealer can heal, increasing health of other creatures.
  *
- * @author Ben Henry, Mansib Talukder
+ * @author Ben Henry
+ * @author Mansib Talukder
  * @version 1.0
  */
 public class CreatureHealer extends Creature {
