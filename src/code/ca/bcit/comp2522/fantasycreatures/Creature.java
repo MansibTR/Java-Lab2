@@ -24,21 +24,21 @@ import java.time.LocalDate;
  */
 public class Creature {
 
-    private static final int ZERO = 0;
+    private static final int ZERO       = 0;
+    private static final int ZERO_HP    = 0;
+    private static final int MAX_HP     = 100;
 
-    private static final int ZERO_HP = 0;
-    private static final int MAX_HP = 100;
-
-    private final String name;
-    private final Date dateOfBirth;
+    private final String    name;
+    private final Date      dateOfBirth;
 
     private int health;
     
     /**
      * Constructs a new {@code Creature} object.
      *
-     * @param name the name of the creature. Must not be null or empty.
-     * @param dateOfBirth the date of birth of the creature. Must not be in the future.
+     * @param name          name. Must not be null or empty.
+     * @param dateOfBirth   date of birth. Must not be in the future.
+     *
      * @throws IllegalArgumentException if the name is invalid or if the date of birth is in the future.
      */
     public Creature(final String name, final Date dateOfBirth)
@@ -98,8 +98,8 @@ public class Creature {
      */
     public String getDetails() {
         
-        StringBuilder sb;
-        String string;
+        StringBuilder   sb;
+        String          string;
         
         sb = new StringBuilder();
         
@@ -140,6 +140,7 @@ public class Creature {
      * Health cannot fall below 0.
      *
      * @param damage the amount of damage. Must be a non-negative value.
+     *
      * @throws DamageException if the damage value is negative.
      */
     public void takeDamage(final int damage) throws DamageException {
@@ -160,6 +161,7 @@ public class Creature {
      * Health cannot exceed {@value MAX_HP}.
      *
      * @param healAmount the amount to heal. Must be a non-negative value.
+     *
      * @throws HealingException if the heal amount is negative.
      */
     public void heal(final int healAmount) throws HealingException {
@@ -180,6 +182,7 @@ public class Creature {
      * Name cannot be null, empty, or blank.
      *
      * @param name the name of the creature.
+     *
      * @throws IllegalArgumentException if the name is null, empty, or blank.
      */
     private void validateName(final String name) {
@@ -194,6 +197,7 @@ public class Creature {
      * dateOfBirth cannot be in the future.
      *
      * @param dateOfBirth the date of birth of the creature.
+     *
      * @throws IllegalArgumentException if the date of birth is in the future.
      */
     private void validateDateOfBirth(final Date dateOfBirth) {

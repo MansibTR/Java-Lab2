@@ -5,6 +5,7 @@ package ca.bcit.comp2522.fantasycreatures;
  * with additional attributes and behavior related to firepower.
  * The Dragon can breathe fire, dealing damage to other creatures,
  * and can restore its firepower.
+ *
  * <p>
  * Validates that the Dragon's firepower is between
  * {@value MIN_FIREPOWER} and {@value MAX_FIREPOWER}.
@@ -15,9 +16,9 @@ package ca.bcit.comp2522.fantasycreatures;
  */
 public class Dragon extends Creature{
 
-    private static final int MIN_FIREPOWER = 0;
-    private static final int MAX_FIREPOWER = 100;
-    private static final int FIRE_BREATH_COST = 10;
+    private static final int MIN_FIREPOWER      = 0;
+    private static final int MAX_FIREPOWER      = 100;
+    private static final int FIRE_BREATH_COST   = 10;
     private static final int FIRE_BREATH_DAMAGE = 20;
 
     private int firepower;
@@ -25,15 +26,18 @@ public class Dragon extends Creature{
     /**
      * Constructs a new {@code Dragon} object
      *
-     * @param name the name of the dragon. Must not be null or empty.
-     * @param dateOfBirth the date of birth of the dragon. Must not be in the future.
-     * @param firepower the initial firepower of the dragon. Must be between {@value MIN_FIREPOWER} and {@value MAX_FIREPOWER}.
+     * @param name          name. Must not be null or empty.
+     * @param dateOfBirth   date of birth. Must not be in the future.
+     * @param firepower     firepower of the dragon. Must be between {@value MIN_FIREPOWER} and {@value MAX_FIREPOWER}.
+     *
      * @throws IllegalArgumentException if the name, date of birth, or firepower are invalid.
      */
     public Dragon(final String name, final Date dateOfBirth, final int firepower)
             throws IllegalArgumentException {
         
         super(name, dateOfBirth);
+        
+        validateFirepower();
         this.firepower = firepower;
     }
     
@@ -67,7 +71,6 @@ public class Dragon extends Creature{
         string = sb.toString();
 
         return string;
-
     }
     
     /**
@@ -89,6 +92,7 @@ public class Dragon extends Creature{
      * perform this action.
      *
      * @param creature the target creature to breathe fire on.
+     *
      * @throws LowFirePowerException if the dragon's firepower is too low to breathe fire.
      */
     public void breatheFire(final Creature creature)
