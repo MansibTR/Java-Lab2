@@ -14,7 +14,7 @@ package ca.bcit.comp2522.fantasycreatures;
  * @version 1.0
  */
 public class LowFirePowerException extends Exception {
-    LowFirePowerException(String message) {
+    LowFirePowerException(final String message) {
         super(message);
     }
 }

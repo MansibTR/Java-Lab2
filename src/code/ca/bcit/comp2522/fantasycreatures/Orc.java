@@ -15,13 +15,20 @@ package ca.bcit.comp2522.fantasycreatures;
  */
 public class Orc extends Creature {
     
-    private static final int MIN_RAGE                   = 0;
-    private static final int MAX_RAGE                   = 30;
-    private static final int RAGE_COST                  = 5;
-    private static final int RAGE_DOUBLE_DAMAGE         = 30;
-    private static final int DOUBLE_DAMAGE_CONDITION    = 20;
+    private static final int MIN_RAGE                       = 0;
+    private static final int MAX_RAGE                       = 30;
+    private static final int ENRAGE_VALUE                   = 15;
+    private static final int BERSERK_COST                   = 30;
+    private static final int INITIAL_DAMAGE_MODIFIER        = 1;
+    private static final int BERSERK_DAMAGE_MODIFIER        = 2;
+    private static final int INITIAL_DAMAGE_VULNERABILITY   = 1;
+    private static final int BERSERK_DAMAGE_VULNERABILITY   = 2;
+    private static final int BASE_DAMAGE                    = 15;
     
     private int rage;
+    private int damageMultiplier;
+    private int damageVulnerabilityMultiplier;
+    
     
     /**
      * Constructs a new {@code Orc} object.
@@ -38,6 +45,9 @@ public class Orc extends Creature {
         
         validateRage();
         this.rage = rage;
+        this.damageMultiplier = INITIAL_DAMAGE_MODIFIER;
+        this.damageVulnerabilityMultiplier = INITIAL_DAMAGE_VULNERABILITY;
+        
     }
     
     /**
@@ -86,25 +96,65 @@ public class Orc extends Creature {
     }
     
     /**
-     * Allows the orc to go berserk, reducing the target's health by
-     * a fixed amount. The orc must have enough rage (at least {@value RAGE_COST}) to
-     * perform this action.
-     *
-     * @param creature the target creature to berserk on
+     * Increases the orc's rage value by {@value ENRAGE_VALUE}, up to {@value MAX_RAGE}.
+     */
+    public void enrage() {
+        rage += ENRAGE_VALUE;
+        
+        if (rage > MAX_RAGE) {
+            rage = MAX_RAGE;
+        }
+    }
+    
+    /**
+     * Allows the orc to go berserk, increasing its damage multiplier
+     * to {@value BERSERK_DAMAGE_MODIFIER} and its damage taken multiplier
+     * to {@value BERSERK_DAMAGE_VULNERABILITY}.
+     * The orc must have enough rage (at least {@value BERSERK_COST}) to
+     * perform this action, and it will be consumed if it does.
      *
      * @throws LowRageException if the orc's rage is too low to berserk
      */
-    public void berserk(final Creature creature)
+    public void berserk()
             throws LowRageException {
         
-        if (rage < RAGE_COST) {
+        if (rage < BERSERK_COST) {
             throw new LowRageException("Not enough Rage!");
         }
         
-        rage += RAGE_COST;
+        rage -= BERSERK_COST;
+        damageMultiplier = BERSERK_DAMAGE_MODIFIER;
+        damageVulnerabilityMultiplier = BERSERK_DAMAGE_VULNERABILITY;
         
-        if (rage > DOUBLE_DAMAGE_CONDITION) {
-            creature.takeDamage(RAGE_DOUBLE_DAMAGE);
-        }
+    }
+    
+    /**
+     * Allows the orc to strike another creature dealing {@value BASE_DAMAGE} damage multiplied
+     * by its damage multiplier ({@value INITIAL_DAMAGE_MODIFIER} or {@value BERSERK_DAMAGE_MODIFIER}).
+     *
+     * @param creature the target creature to strike
+     */
+    public void cleave(final Creature creature) {
+        
+        creature.takeDamage(BASE_DAMAGE * damageMultiplier);
+        
+    }
+    
+    /**
+     * Reduces the orc's health by a specified damage amount
+     * multiplied by the orc's damage vulnerability multiplier
+     * ({@value INITIAL_DAMAGE_VULNERABILITY} or {@value BERSERK_DAMAGE_VULNERABILITY}).
+     *
+     * @see Creature#takeDamage
+     *
+     * @param damage the amount of damage. Must be a non-negative value.
+     *
+     * @throws DamageException if the damage value is negative.
+     */
+    @Override
+    public void takeDamage(final int damage) throws DamageException {
+        
+        super.takeDamage(damage * damageVulnerabilityMultiplier);
+
     }
 }

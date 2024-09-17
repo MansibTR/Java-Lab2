@@ -9,7 +9,7 @@ package ca.bcit.comp2522.fantasycreatures;
  * @version 1.0
  */
 public class LowRageException extends RuntimeException {
-    LowRageException(String message) {
+    LowRageException(final String message) {
         super(message);
     }
 }

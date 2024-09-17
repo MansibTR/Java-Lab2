@@ -14,7 +14,7 @@ package ca.bcit.comp2522.fantasycreatures;
  * @version 1.0
  */
 public class LowManaException extends Exception {
-    LowManaException(String message) {
+    LowManaException(final String message) {
         super(message);
     }
 }
