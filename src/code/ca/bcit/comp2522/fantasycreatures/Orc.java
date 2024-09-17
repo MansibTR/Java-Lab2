@@ -36,7 +36,7 @@ public class Orc extends Creature {
             throws IllegalArgumentException {
         super(name, dateOfBirth);
         
-        
+        validateRage();
         this.rage = rage;
     }
     
