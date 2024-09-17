@@ -3,13 +3,17 @@
   <component name="CheckStyle-IDEA" serialisationVersion="2">
     <checkstyleVersion>10.18.0</checkstyleVersion>
     <scanScope>JavaOnly</scanScope>
+    <suppressErrors>true</suppressErrors>
     <copyLibs>true</copyLibs>
     <option name="thirdPartyClasspath" />
-    <option name="activeLocationIds" />
+    <option name="activeLocationIds">
+      <option value="a4bec205-2d0a-4c5d-a106-044766730056" />
+    </option>
     <option name="locations">
       <list>
         <ConfigurationLocation id="bundled-sun-checks" type="BUNDLED" scope="All" description="Sun Checks">(bundled)</ConfigurationLocation>
         <ConfigurationLocation id="bundled-google-checks" type="BUNDLED" scope="All" description="Google Checks">(bundled)</ConfigurationLocation>
+        <ConfigurationLocation id="a4bec205-2d0a-4c5d-a106-044766730056" type="LOCAL_FILE" scope="All" description="COMP 2522">$PROJECT_DIR$/../../../../Term 1/COMP 1510/New folder/Comp1510-assign-1-template/Comp1510-assign-1/Comp1510CheckstyleAssn1.xml</ConfigurationLocation>
       </list>
     </option>
   </component>

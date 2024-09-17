@@ -2,6 +2,26 @@ package ca.bcit.comp2522.fantasycreatures;
 
 import java.time.LocalDate;
 
+/**
+ * The {@code Creature} class represents a creature with
+ * a name, date of birth, and health status.
+ *
+ * <p>
+ * Provides methods to calculate age, take damage,
+ * heal, and check if the creature is alive.
+ * </p>
+ *
+ * <p>
+ * Validates that name is not null or empty, and the date of birth
+ * is not in the future. The creature's health starts at {@value MAX_HP} and
+ * cannot exceed this value or fall below zero.
+ * </p>
+ *
+ * Custom exceptions are thrown for invalid damage or healing amounts.
+ *
+ * @author Ben Henry, Mansib Talukder
+ * @version 1.0
+ */
 public class Creature {
 
     private static final int ZERO = 0;
@@ -13,84 +33,179 @@ public class Creature {
     private final Date dateOfBirth;
 
     private int health;
-
-    public Creature(final String name, final Date dateOfBirth) throws IllegalArgumentException {
+    
+    /**
+     * Constructs a new {@code Creature} object.
+     *
+     * @param name the name of the creature. Must not be null or empty.
+     * @param dateOfBirth the date of birth of the creature. Must not be in the future.
+     * @throws IllegalArgumentException if the name is invalid or if the date of birth is in the future.
+     */
+    public Creature(final String name, final Date dateOfBirth)
+            throws IllegalArgumentException {
+        
+        validateName(name);
+        validateDateOfBirth(dateOfBirth);
+        
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.health = MAX_HP;
-
-        validateName(name);
-        validateDateOfBirth(dateOfBirth);
     }
-
+    
+    /**
+     * Getter method for name.
+     * @return name of the creature
+     */
+    public String getName() {
+        return this.name;
+    }
+    
+    /**
+     * Getter method for dateOfBirth.
+     * @return dateOfBirth of the creature.
+     */
+    public Date getDateOfBirth() {
+        return this.dateOfBirth;
+    }
+    
+    /**
+     * Calculates the age of the creature in years based on its date of birth.
+     *
+     * @return the age of the creature in years.
+     */
     public int getAgeYears() {
+        
+        LocalDate today;
+        int currentYear;
+        int birthYear;
+        int age;
 
-        LocalDate today = LocalDate.now();
-        int currentYear = today.getYear();
-        int birthYear = dateOfBirth.getYear();
+        today = LocalDate.now();
+        
+        currentYear = today.getYear();
+        birthYear = dateOfBirth.getYear();
+        
+        age = currentYear - birthYear;
 
-        return currentYear - birthYear;
+        return age;
     }
-
+    
+    /**
+     * Provides a detailed description of the creature,
+     * including its name, date of birth, age, and health.
+     *
+     * @return the creature's details.
+     */
     public String getDetails() {
-        StringBuilder details = new StringBuilder();
-        details.append(name)
-                .append('\n')
-                .append("-".repeat(name.length()))
-                .append('\n')
-                .append("Date of birth: \t").append(dateOfBirth.getYYYYMMDD())
-                .append('\n')
-                .append("Age: ").append(this.getAgeYears())
-                .append('\n')
-                .append("Health: ").append(health);
+        
+        StringBuilder sb;
+        String string;
+        
+        sb = new StringBuilder();
+        
+        sb.append(name);
+        sb.append('\n');
+        sb.append("-".repeat(name.length()));
+        sb.append('\n');
+        sb.append("Date of birth: \t");
+        sb.append(dateOfBirth.getYYYYMMDD());
+        sb.append('\n');
+        sb.append("Age: ");
+        sb.append(getAgeYears());
+        sb.append('\n');
+        sb.append("Health: ");
+        sb.append(health);
 
-        return details.toString();
+        string = sb.toString();
+        
+        return string;
     }
-
-
-    private boolean isAlive() {
-        return health > ZERO_HP;
+    
+    /**
+     * Checks if the creature is alive.
+     *
+     * @return {@code true} if the creature's health is greater than 0.
+     */
+    public boolean isAlive() {
+        
+        boolean alive;
+        
+        alive = health > ZERO_HP;
+        
+        return alive;
     }
-
-    public void takeDamage(int damage) throws DamageException {
-        if (damage < 0) {
+    
+    /**
+     * Reduces the creature's health by a specified damage amount.
+     * Health cannot fall below 0.
+     *
+     * @param damage the amount of damage. Must be a non-negative value.
+     * @throws DamageException if the damage value is negative.
+     */
+    public void takeDamage(final int damage) throws DamageException {
+        
+        if (damage < ZERO) {
             throw new DamageException("Damage cannot be negative");
         }
+        
         health -= damage;
-        if(health <= ZERO) {
-            health = ZERO;
+        
+        if (health <= ZERO_HP) {
+            health = ZERO_HP;
         }
-
     }
-
-    private void heal(int healAmount) throws HealingException {
-        if (healAmount < 0){
+    
+    /**
+     * Increases the creature's health by a specified healing amount.
+     * Health cannot exceed {@value MAX_HP}.
+     *
+     * @param healAmount the amount to heal. Must be a non-negative value.
+     * @throws HealingException if the heal amount is negative.
+     */
+    public void heal(final int healAmount) throws HealingException {
+        
+        if (healAmount < ZERO) {
             throw new HealingException("Heal amount cannot be negative");
         }
+        
         health += healAmount;
-        if(health > MAX_HP) {
+        
+        if (health > MAX_HP) {
             health = MAX_HP;
         }
-
     }
+    
+    /**
+     * This method validates the creature's name.
+     * Name cannot be null, empty, or blank.
+     *
+     * @param name the name of the creature.
+     * @throws IllegalArgumentException if the name is null, empty, or blank.
+     */
+    private void validateName(final String name) {
 
-    private void validateName(String name) {
-
-        if (name == null || name.isEmpty()) {
+        if (name == null || name.isEmpty() || name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be blank");
         }
-
     }
-
+    
+    /**
+     * This method validates the date of birth.
+     * dateOfBirth cannot be in the future.
+     *
+     * @param dateOfBirth the date of birth of the creature.
+     * @throws IllegalArgumentException if the date of birth is in the future.
+     */
     private void validateDateOfBirth(final Date dateOfBirth) {
-        LocalDate today = LocalDate.now();
-        String currentDate = today.toString();
+        LocalDate today;
+        String currentDate;
+        
+        today = LocalDate.now();
+        currentDate = today.toString();
 
         if (dateOfBirth.getYYYYMMDD().compareTo(currentDate) > ZERO) {
-            throw new IllegalArgumentException("Date of birth should be in the past");
+            throw new IllegalArgumentException("Date of birth cannot be in the future");
         }
-
     }
-
-
+    
 }
