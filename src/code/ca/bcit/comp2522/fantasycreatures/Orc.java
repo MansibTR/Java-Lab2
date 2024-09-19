@@ -151,7 +151,7 @@ public class Orc extends Creature {
      * @see Creature#takeDamage
      */
     @Override
-    public void takeDamage(final int damage) throws DamageException {
+    void takeDamage(final int damage) throws DamageException {
 
         super.takeDamage(damage * damageVulnerabilityMultiplier);
 
