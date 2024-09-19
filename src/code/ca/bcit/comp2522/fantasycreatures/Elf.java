@@ -58,9 +58,9 @@ public class Elf extends Creature {
      */
     @Override
     public String getDetails() {
-        StringBuilder sb;
-        String creatureDetails;
-        String string;
+        final StringBuilder sb;
+        final String creatureDetails;
+        final String string;
         
         sb = new StringBuilder();
         creatureDetails = super.getDetails();
@@ -113,7 +113,7 @@ public class Elf extends Creature {
      *
      * @param amount the amount of mana to restore.
      */
-    public void restoreMana(final int amount) {
+    void restoreMana(final int amount) {
         mana += amount;
         
         if (mana > MAX_MANA) {

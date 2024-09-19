@@ -58,9 +58,9 @@ public class Dragon extends Creature{
      */
     @Override
     public String getDetails() {
-        StringBuilder sb;
-        String creatureDetails;
-        String string;
+        final StringBuilder sb;
+        final String creatureDetails;
+        final String string;
         
         sb = new StringBuilder();
         creatureDetails = super.getDetails();
@@ -114,7 +114,7 @@ public class Dragon extends Creature{
      *
      * @param amount the amount of firepower to restore.
      */
-    public void restoreFirePower(final int amount) {
+    void restoreFirePower(final int amount) {
         firepower += amount;
 
         if (firepower > MAX_FIREPOWER) {

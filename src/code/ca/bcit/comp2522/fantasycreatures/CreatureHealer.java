@@ -13,11 +13,8 @@ import java.util.Random;
  */
 public class CreatureHealer extends Creature {
     
-    private static final int MIN_HEAL = 0;
     private static final int MAX_HEAL = 100;
-    
-    private int heal;
-    
+
     /**
      * Constructs a new {@code CreatureHealer} object.
      *

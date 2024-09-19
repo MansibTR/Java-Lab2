@@ -40,10 +40,8 @@ public class Creature {
      * @param name          name. Must not be null or empty.
      * @param dateOfBirth   date of birth. Must not be in the future.
      *
-     * @throws IllegalArgumentException if the name is invalid or if the date of birth is in the future.
      */
-    public Creature(final String name, final Date dateOfBirth)
-            throws IllegalArgumentException {
+    public Creature(final String name, final Date dateOfBirth) {
         
         validateName(name);
         validateDateOfBirth(dateOfBirth);
@@ -76,13 +74,13 @@ public class Creature {
      */
     public int getAgeYears() {
         
-        LocalDate today;
-        int currentYear;
-        int birthYear;
-        int age;
+        final LocalDate today;
+        final int currentYear;
+        final int birthYear;
+        final int age;
 
         today = LocalDate.now();
-        
+
         currentYear = today.getYear();
         birthYear = dateOfBirth.getYear();
         
@@ -99,8 +97,8 @@ public class Creature {
      */
     public String getDetails() {
         
-        StringBuilder   sb;
-        String          string;
+        final StringBuilder   sb;
+        final String          string;
         
         sb = new StringBuilder();
         
@@ -125,7 +123,7 @@ public class Creature {
     /**
      * Checks if the creature is alive.
      *
-     * @return {@code true} if the creature's health is greater than 0.
+     * @return {@code true} if the creature's health is greater than {@value ZERO_HP}.
      */
     public boolean isAlive() {
         
@@ -139,7 +137,7 @@ public class Creature {
 
     /**
      * Reduces the creature's health by a specified damage amount.
-     * Health cannot fall below 0.
+     * Health cannot fall below {@value ZERO_HP}.
      *
      * @param damage the amount of damage. Must be a non-negative value.
      *
@@ -178,7 +176,7 @@ public class Creature {
      *
      * @throws HealingException if the heal amount is negative.
      */
-    public void heal(final int healAmount) throws HealingException {
+    void heal(final int healAmount) throws HealingException {
         
         if (healAmount < ZERO) {
             throw new HealingException("Heal amount cannot be negative");
@@ -202,8 +200,10 @@ public class Creature {
     private void validateName(final String name) {
 
         if (name == null || name.isEmpty() || name.isBlank()) {
-            throw new IllegalArgumentException("Name cannot be blank");
+//            throw new IllegalArgumentException("Name cannot be blank");
+            System.out.println("Name cannot be null or empty");
         }
+
     }
     
     /**
@@ -222,8 +222,10 @@ public class Creature {
         currentDate = today.toString();
 
         if (dateOfBirth.getYYYYMMDD().compareTo(currentDate) > ZERO) {
-            throw new IllegalArgumentException("Date of birth cannot be in the future");
+//            throw new IllegalArgumentException("Date of birth cannot be in the future");
+            System.out.println("Date of birth cannot be in the future");
         }
+
     }
     
 }

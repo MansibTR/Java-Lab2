@@ -1,9 +1,11 @@
 import ca.bcit.comp2522.fantasycreatures.*;
 
-import java.sql.SQLOutput;
-
 public class CreatureTest {
-    
+
+    /**
+     * Drives the program
+     * @param args unused
+     */
     public static void main (final String[] args) {
         Date puffBirth = new Date (1955, 1, 14);
         Dragon puff = new Dragon("Puff", puffBirth, 100);
@@ -16,6 +18,7 @@ public class CreatureTest {
         
         Date healerBirth = new Date (2000, 1, 1);
         CreatureHealer healer = new CreatureHealer("Healer", healerBirth);
+
         
         System.out.println(puff.getDetails());
         System.out.println();

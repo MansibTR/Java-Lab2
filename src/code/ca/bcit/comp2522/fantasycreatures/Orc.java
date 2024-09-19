@@ -67,9 +67,9 @@ public class Orc extends Creature {
      */
     @Override
     public String getDetails() {
-        StringBuilder sb;
-        String creatureDetails;
-        String string;
+        final StringBuilder sb;
+        final String creatureDetails;
+        final String string;
 
         sb = new StringBuilder();
         creatureDetails = super.getDetails();
