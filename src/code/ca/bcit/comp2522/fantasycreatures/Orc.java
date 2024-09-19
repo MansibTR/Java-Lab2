@@ -15,50 +15,50 @@ package ca.bcit.comp2522.fantasycreatures;
  * @version 1.0
  */
 public class Orc extends Creature {
-    
-    private static final int MIN_RAGE                       = 0;
-    private static final int MAX_RAGE                       = 30;
-    private static final int ENRAGE_VALUE                   = 15;
-    private static final int BERSERK_COST                   = 30;
-    private static final int INITIAL_DAMAGE_MODIFIER        = 1;
-    private static final int BERSERK_DAMAGE_MODIFIER        = 2;
-    private static final int INITIAL_DAMAGE_VULNERABILITY   = 1;
-    private static final int BERSERK_DAMAGE_VULNERABILITY   = 2;
-    private static final int BASE_DAMAGE                    = 15;
-    
+
+    private static final int MIN_RAGE = 0;
+    private static final int MAX_RAGE = 30;
+    private static final int ENRAGE_VALUE = 15;
+    private static final int BERSERK_COST = 30;
+    private static final int INITIAL_DAMAGE_MODIFIER = 1;
+    private static final int BERSERK_DAMAGE_MODIFIER = 2;
+    private static final int INITIAL_DAMAGE_VULNERABILITY = 1;
+    private static final int BERSERK_DAMAGE_VULNERABILITY = 2;
+    private static final int BASE_DAMAGE = 15;
+
     private int rage;
     private int damageMultiplier;
     private int damageVulnerabilityMultiplier;
-    
-    
+
+
     /**
      * Constructs a new {@code Orc} object.
      *
-     * @param name          name. Must not be null or empty.
-     * @param dateOfBirth   date of birth. Must not be in the future.
-     * @param rage          rage of the orc. Must be between {@value MIN_RAGE} and {@value MAX_RAGE}.
-     *
+     * @param name        name. Must not be null or empty.
+     * @param dateOfBirth date of birth. Must not be in the future.
+     * @param rage        rage of the orc. Must be between {@value MIN_RAGE} and {@value MAX_RAGE}.
      * @throws IllegalArgumentException if the name is invalid or if the date of birth is in the future.
      */
     public Orc(final String name, final Date dateOfBirth, final int rage)
             throws IllegalArgumentException {
         super(name, dateOfBirth);
-        
+
         validateRage();
         this.rage = rage;
         this.damageMultiplier = INITIAL_DAMAGE_MODIFIER;
         this.damageVulnerabilityMultiplier = INITIAL_DAMAGE_VULNERABILITY;
-        
+
     }
-    
+
     /**
      * Getter method for rage.
+     *
      * @return rage of the orc
      */
     public int getRage() {
         return this.rage;
     }
-    
+
     /**
      * Provides a detailed description of the orc,
      * including its name, date of birth, age, health, and rage.
@@ -70,19 +70,19 @@ public class Orc extends Creature {
         StringBuilder sb;
         String creatureDetails;
         String string;
-        
+
         sb = new StringBuilder();
         creatureDetails = super.getDetails();
-        
+
         sb.append(creatureDetails);
         sb.append("\nRage: ");
         sb.append(rage);
-        
+
         string = sb.toString();
-        
+
         return string;
     }
-    
+
     /**
      * This method validates the rage of the orc.
      * Rage must be between {@value MIN_RAGE} and {@value MAX_RAGE}.
@@ -92,21 +92,22 @@ public class Orc extends Creature {
     private void validateRage() {
         if (rage < MIN_RAGE || rage > MAX_RAGE) {
             throw new IllegalArgumentException("Rage must be between" +
-                                               MIN_RAGE + " and " + MAX_RAGE);
+                    MIN_RAGE + " and " + MAX_RAGE);
         }
     }
-    
+
+
     /**
      * Increases the orc's rage value by {@value ENRAGE_VALUE}, up to {@value MAX_RAGE}.
      */
     public void enrage() {
         rage += ENRAGE_VALUE;
-        
+
         if (rage > MAX_RAGE) {
             rage = MAX_RAGE;
         }
     }
-    
+
     /**
      * Allows the orc to go berserk, increasing its damage multiplier
      * to {@value BERSERK_DAMAGE_MODIFIER} and its damage taken multiplier
@@ -118,17 +119,16 @@ public class Orc extends Creature {
      */
     public void berserk()
             throws LowRageException {
-        
-        if (rage < BERSERK_COST) {
-            throw new LowRageException("Not enough Rage!");
+
+        if (resourceChecker(rage, BERSERK_COST)) {
+            System.out.println("Not enough Rage!");
+        } else {
+            rage -= BERSERK_COST;
+            damageMultiplier = BERSERK_DAMAGE_MODIFIER;
+            damageVulnerabilityMultiplier = BERSERK_DAMAGE_VULNERABILITY;
         }
-        
-        rage -= BERSERK_COST;
-        damageMultiplier = BERSERK_DAMAGE_MODIFIER;
-        damageVulnerabilityMultiplier = BERSERK_DAMAGE_VULNERABILITY;
-        
     }
-    
+
     /**
      * Allows the orc to strike another creature dealing {@value BASE_DAMAGE} damage multiplied
      * by its damage multiplier ({@value INITIAL_DAMAGE_MODIFIER} or {@value BERSERK_DAMAGE_MODIFIER}).
@@ -136,25 +136,23 @@ public class Orc extends Creature {
      * @param creature the target creature to strike
      */
     public void cleave(final Creature creature) {
-        
+
         creature.takeDamage(BASE_DAMAGE * damageMultiplier);
-        
+
     }
-    
+
     /**
      * Reduces the orc's health by a specified damage amount
      * multiplied by the orc's damage vulnerability multiplier
      * ({@value INITIAL_DAMAGE_VULNERABILITY} or {@value BERSERK_DAMAGE_VULNERABILITY}).
      *
-     * @see Creature#takeDamage
-     *
      * @param damage the amount of damage. Must be a non-negative value.
-     *
      * @throws DamageException if the damage value is negative.
+     * @see Creature#takeDamage
      */
     @Override
     public void takeDamage(final int damage) throws DamageException {
-        
+
         super.takeDamage(damage * damageVulnerabilityMultiplier);
 
     }

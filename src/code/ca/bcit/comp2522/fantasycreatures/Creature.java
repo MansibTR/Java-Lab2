@@ -147,16 +147,26 @@ public class Creature {
     public void takeDamage(final int damage) throws DamageException {
         
         if (damage < ZERO) {
-            throw new DamageException("Damage cannot be negative");
-        }
-        
-        health -= damage;
-        
-        if (health <= ZERO_HP) {
-            health = ZERO_HP;
+            System.out.println("Damage cannot be negative");
+        } else {
+
+            health -= damage;
+
+            if (health <= ZERO_HP) {
+                health = ZERO_HP;
+            }
         }
     }
-    
+
+    /**
+     * Returns true if a creature has enough of a resource to perform a certain action, else false.
+     * @param curResource The current resource value.
+     * @param reqResource The amount of resource required to perform an action.
+     */
+    boolean resourceChecker(final int curResource, final int reqResource){
+        return curResource < reqResource;
+    }
+
     /**
      * Increases the creature's health by a specified healing amount.
      * Health cannot exceed {@value MAX_HP}.
@@ -168,13 +178,15 @@ public class Creature {
     public void heal(final int healAmount) throws HealingException {
         
         if (healAmount < ZERO) {
-            throw new HealingException("Heal amount cannot be negative");
-        }
-        
-        health += healAmount;
-        
-        if (health > MAX_HP) {
-            health = MAX_HP;
+//            throw new HealingException("Heal amount cannot be negative");
+            System.out.println("Heal amount cannot be negative");
+        } else {
+
+            health += healAmount;
+
+            if (health > MAX_HP) {
+                health = MAX_HP;
+            }
         }
     }
     

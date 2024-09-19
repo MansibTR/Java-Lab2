@@ -99,12 +99,12 @@ public class Elf extends Creature {
     public void castSpell(final Creature creature)
             throws LowManaException {
         
-        if (mana < MANA_COST) {
-            throw new LowManaException("Not enough Mana!");
+        if (resourceChecker(mana, MANA_COST)) {
+            System.out.println("Not enough Mana!");
+        } else {
+            mana -= MANA_COST;
+            creature.takeDamage(MANA_DAMAGE);
         }
-        
-        mana -= MANA_COST;
-        creature.takeDamage(MANA_DAMAGE);
     }
     
     /**
