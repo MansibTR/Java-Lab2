@@ -135,7 +135,8 @@ public class Creature {
         
         return alive;
     }
-    
+
+
     /**
      * Reduces the creature's health by a specified damage amount.
      * Health cannot fall below 0.
@@ -144,7 +145,7 @@ public class Creature {
      *
      * @throws DamageException if the damage value is negative.
      */
-    public void takeDamage(final int damage) throws DamageException {
+    void takeDamage(final int damage) throws DamageException {
         
         if (damage < ZERO) {
             System.out.println("Damage cannot be negative");
@@ -164,7 +165,9 @@ public class Creature {
      * @param reqResource The amount of resource required to perform an action.
      */
     boolean resourceChecker(final int curResource, final int reqResource){
+
         return curResource < reqResource;
+
     }
 
     /**
@@ -178,10 +181,8 @@ public class Creature {
     public void heal(final int healAmount) throws HealingException {
         
         if (healAmount < ZERO) {
-//            throw new HealingException("Heal amount cannot be negative");
-            System.out.println("Heal amount cannot be negative");
+            throw new HealingException("Heal amount cannot be negative");
         } else {
-
             health += healAmount;
 
             if (health > MAX_HP) {

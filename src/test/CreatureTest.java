@@ -12,7 +12,7 @@ public class CreatureTest {
         Elf onAShelf = new Elf ("OnAShelf", onAShelfBirth, 50);
         
         Date shrekBirth = new Date (1975, 5, 12);
-        Orc shrek = new Orc ("Shrek", shrekBirth, 30);
+        Creature shrek = new Orc ("Shrek", shrekBirth, 30);
         
         Date healerBirth = new Date (2000, 1, 1);
         CreatureHealer healer = new CreatureHealer("Healer", healerBirth);
@@ -33,11 +33,13 @@ public class CreatureTest {
         System.out.println("OnAShelf's class: " + onAShelf.getClass());
         System.out.println("Shrek instance of Orc?: " + (shrek instanceof Orc));
         System.out.println("Shrek's class: " + shrek.getClass());
-        
-        
-        shrek.cleave(onAShelf);
-        System.out.println("OnAShelf got cleaved by Shrek!");
-        System.out.println("OnAShelf details after cleave: \n" + onAShelf.getDetails());
+
+        if (shrek instanceof Orc) {
+            ((Orc)shrek).cleave(onAShelf);
+            System.out.println("OnAShelf got cleaved by Shrek!");
+            System.out.println("OnAShelf details after cleave: \n" + onAShelf.getDetails());
+
+        }
         
         try
         {
@@ -50,21 +52,17 @@ public class CreatureTest {
         }
         
         System.out.println("Shrek details after a spell: \n" + shrek.getDetails());
-        
-        try
-        {
-            shrek.berserk();
+
+        if(shrek instanceof Orc) {
+
+            ((Orc)shrek).berserk();
             System.out.println("Shrek used Berserk!");
+
+            ((Orc)shrek).cleave(onAShelf);
+
+            System.out.println("OnAShelf got cleaved by Shrek!");
+            System.out.println("OnAShelf details after a berserk cleave: \n" + onAShelf.getDetails());
         }
-        catch (LowRageException e)
-        {
-            System.out.println(e.getMessage());
-        }
-        
-        shrek.cleave(onAShelf);
-        
-        System.out.println("OnAShelf got cleaved by Shrek!");
-        System.out.println("OnAShelf details after a berserk cleave: \n" + onAShelf.getDetails());
         
         for (int i = 0; i <= 9; i++)
         {
@@ -81,13 +79,9 @@ public class CreatureTest {
         
         System.out.println(shrek.getDetails());
         
-        try {
-            shrek.berserk();
-            System.out.println("Shrek used Berserk!");
-        }
-        catch (LowRageException e)
-        {
-            System.out.println(e.getMessage());
+        if (shrek instanceof Orc){
+            System.out.println("Shrek tries to use Berserk!");
+            ((Orc)shrek).berserk();
         }
         
         System.out.println("Is Shrek alive?: " + shrek.isAlive());
